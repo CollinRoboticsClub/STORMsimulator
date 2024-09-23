@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://bswxci7cb4tsl"]
+
+[ext_resource type="Texture2D" uid="uid://cp7shvv2qp587" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_yym6c"]
+[ext_resource type="PackedScene" uid="uid://cqg8ca0f08yk7" path="res://scenes/robot.tscn" id="2_trg0w"]
+[ext_resource type="Texture2D" uid="uid://b166xyqxh4q6f" path="res://autumn_field_puresky_4k.hdr" id="3_uyr1d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fig0"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa3iv"]
+albedo_texture = ExtResource("1_yym6c")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ecyep"]
+material = SubResource("StandardMaterial3D_oa3iv")
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_s1ymj"]
+panorama = ExtResource("3_uyr1d")
+
+[sub_resource type="Sky" id="Sky_p1qur"]
+sky_material = SubResource("PanoramaSkyMaterial_s1ymj")
+
+[sub_resource type="Environment" id="Environment_mekck"]
+background_mode = 2
+sky = SubResource("Sky_p1qur")
+
+[node name="Test" type="Node3D"]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("BoxShape3D_1fig0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+mesh = SubResource("BoxMesh_ecyep")
+
+[node name="Robot" parent="." instance=ExtResource("2_trg0w")]
+transform = Transform3D(0.811462, 0, -0.584405, 0, 1, 0, 0.584405, 0, 0.811462, 0, 1.03103, 0)
+rotation_force = 0.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mekck")

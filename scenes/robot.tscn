@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqg8ca0f08yk7"]
+
+[ext_resource type="Script" path="res://scenes/robot.gd" id="1_g0ks3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5fgxc"]
+friction = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf1lb"]
+size = Vector3(0.457, 0.457, 0.457)
+
+[sub_resource type="BoxMesh" id="BoxMesh_turv3"]
+size = Vector3(0.457, 0.457, 0.457)
+
+[node name="Robot" type="RigidBody3D"]
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_5fgxc")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -1, 0)
+angular_damp = 5.0
+script = ExtResource("1_g0ks3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_yf1lb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_turv3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.162154, -0.256822)
+current = true

@@ -1,24 +1,23 @@
-[gd_scene load_steps=25 format=3 uid="uid://bn7cnex08j88o"]
+[gd_scene load_steps=31 format=3 uid="uid://bn7cnex08j88o"]
 
 [ext_resource type="Texture2D" uid="uid://cp7shvv2qp587" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_dei21"]
 [ext_resource type="Texture2D" uid="uid://dvscnl23vqhpv" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="2_5hubk"]
 [ext_resource type="Texture2D" uid="uid://c4kdtj033fe0t" path="res://addons/kenney_prototype_textures/dark/texture_06.png" id="2_sed1s"]
 [ext_resource type="Texture2D" uid="uid://c88evg7np6apx" path="res://addons/kenney_prototype_textures/green/texture_09.png" id="3_03mqo"]
 [ext_resource type="Texture2D" uid="uid://bovimja80ag0j" path="res://addons/kenney_prototype_textures/red/texture_09.png" id="4_sq62i"]
+[ext_resource type="PackedScene" uid="uid://cqg8ca0f08yk7" path="res://scenes/robot.tscn" id="6_dt5ck"]
+[ext_resource type="Texture2D" uid="uid://b166xyqxh4q6f" path="res://autumn_field_puresky_4k.hdr" id="7_iuhnl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_156gm"]
 size = Vector3(3.658, 1, 3.658)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa3iv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eqw7"]
 albedo_texture = ExtResource("1_dei21")
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_sq7cq"]
-material = SubResource("StandardMaterial3D_oa3iv")
+material = SubResource("StandardMaterial3D_2eqw7")
 size = Vector3(3.658, 1, 3.658)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7tc47"]
-size = Vector3(3.658, 3, 3.658)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co76m"]
 albedo_texture = ExtResource("2_sed1s")
@@ -28,6 +27,12 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_co76m")
 flip_faces = true
 size = Vector3(3.658, 3, 3.658)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8g3iw"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d34w0"]
+plane = Plane(1, 0, 0, 0)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_n84yd"]
 data = PackedVector3Array(-0.7685, 0.15, 0.3875, 0.7685, 0.15, 0.3875, -0.7685, -0.15, 0.3875, 0.7685, 0.15, 0.3875, 0.7685, -0.15, 0.3875, -0.7685, -0.15, 0.3875, 0.7685, 0.15, -0.3875, -0.7685, 0.15, -0.3875, 0.7685, -0.15, -0.3875, -0.7685, 0.15, -0.3875, -0.7685, -0.15, -0.3875, 0.7685, -0.15, -0.3875, 0.7685, 0.15, 0.3875, 0.7685, 0.15, -0.3875, 0.7685, -0.15, 0.3875, 0.7685, 0.15, -0.3875, 0.7685, -0.15, -0.3875, 0.7685, -0.15, 0.3875, -0.7685, 0.15, -0.3875, -0.7685, 0.15, 0.3875, -0.7685, -0.15, -0.3875, -0.7685, 0.15, 0.3875, -0.7685, -0.15, 0.3875, -0.7685, -0.15, -0.3875, 0.7685, 0.15, 0.3875, -0.7685, 0.15, 0.3875, 0.7685, 0.15, -0.3875, -0.7685, 0.15, 0.3875, -0.7685, 0.15, -0.3875, 0.7685, 0.15, -0.3875, -0.7685, -0.15, 0.3875, 0.7685, -0.15, 0.3875, -0.7685, -0.15, -0.3875, 0.7685, -0.15, 0.3875, 0.7685, -0.15, -0.3875, -0.7685, -0.15, -0.3875)
@@ -84,6 +89,16 @@ outer_radius = 0.2
 rings = 6
 ring_segments = 3
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_px2ls"]
+panorama = ExtResource("7_iuhnl")
+
+[sub_resource type="Sky" id="Sky_eexil"]
+sky_material = SubResource("PanoramaSkyMaterial_px2ls")
+
+[sub_resource type="Environment" id="Environment_64rnp"]
+background_mode = 2
+sky = SubResource("Sky_eexil")
+
 [node name="Scene" type="Node3D"]
 
 [node name="floor" type="StaticBody3D" parent="."]
@@ -97,11 +112,24 @@ mesh = SubResource("BoxMesh_sq7cq")
 [node name="ceiling" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.995662, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ceiling"]
-shape = SubResource("BoxShape3D_7tc47")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ceiling"]
 mesh = SubResource("BoxMesh_iysql")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70603, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_8g3iw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ceiling"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.294529, 0, -1.66149)
+shape = SubResource("WorldBoundaryShape3D_d34w0")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="ceiling"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.294529, 0, 1.50472)
+shape = SubResource("WorldBoundaryShape3D_d34w0")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="ceiling"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.69356, 0, -0.0415661)
+shape = SubResource("WorldBoundaryShape3D_d34w0")
 
 [node name="startingarea1" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05754, 0.649563, -1.43905)
@@ -165,3 +193,9 @@ shape = SubResource("ConcavePolygonShape3D_5rnj8")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="superconeofdoom"]
 transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 1.16803, 0)
 mesh = SubResource("TorusMesh_cnmnw")
+
+[node name="Robot" parent="." instance=ExtResource("6_dt5ck")]
+transform = Transform3D(0.02007, 0, 0.999799, 0, 1, 0, -0.999799, 0, 0.02007, 1.01335, 1.13894, -1.53398)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_64rnp")
