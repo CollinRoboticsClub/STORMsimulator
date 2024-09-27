@@ -206,6 +206,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20748, 0)
 script = ExtResource("8_sp5yi")
 
 [node name="Timer" type="Timer" parent="spawnernode"]
+wait_time = 6.0
 autostart = true
 
 [connection signal="timeout" from="spawnernode/Timer" to="spawnernode" method="_on_timer_timeout"]
