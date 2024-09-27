@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bn7cnex08j88o"]
+[gd_scene load_steps=32 format=3 uid="uid://bn7cnex08j88o"]
 
 [ext_resource type="Texture2D" uid="uid://cp7shvv2qp587" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_dei21"]
 [ext_resource type="Texture2D" uid="uid://dvscnl23vqhpv" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="2_5hubk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bovimja80ag0j" path="res://addons/kenney_prototype_textures/red/texture_09.png" id="4_sq62i"]
 [ext_resource type="PackedScene" uid="uid://cqg8ca0f08yk7" path="res://scenes/robot.tscn" id="6_dt5ck"]
 [ext_resource type="Texture2D" uid="uid://b166xyqxh4q6f" path="res://autumn_field_puresky_4k.hdr" id="7_iuhnl"]
+[ext_resource type="Script" path="res://spawnernode.gd" id="8_sp5yi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_156gm"]
 size = Vector3(3.658, 1, 3.658)
@@ -199,3 +200,12 @@ transform = Transform3D(0.02007, 0, 0.999799, 0, 1, 0, -0.999799, 0, 0.02007, 1.
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_64rnp")
+
+[node name="spawnernode" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20748, 0)
+script = ExtResource("8_sp5yi")
+
+[node name="Timer" type="Timer" parent="spawnernode"]
+autostart = true
+
+[connection signal="timeout" from="spawnernode/Timer" to="spawnernode" method="_on_timer_timeout"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bawpujiywslys"]
+
+[ext_resource type="Texture2D" uid="uid://x71vvn1dmk4s" path="res://addons/kenney_prototype_textures/red/texture_01.png" id="1_cacxh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qypa5"]
+radius = 0.076
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7knt"]
+albedo_texture = ExtResource("1_cacxh")
+
+[sub_resource type="SphereMesh" id="SphereMesh_8txrr"]
+material = SubResource("StandardMaterial3D_l7knt")
+radius = 0.076
+height = 0.152
+
+[node name="Bawl" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_qypa5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_8txrr")

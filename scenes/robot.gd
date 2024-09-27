@@ -42,3 +42,6 @@ func tank_movement():
 		angular_velocity.y += rotation_force
 	if Input.is_action_pressed("right"):
 		angular_velocity.y -= rotation_force
+
+
+
