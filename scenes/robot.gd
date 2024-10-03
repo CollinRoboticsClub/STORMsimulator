@@ -6,16 +6,17 @@ var mode = true
 @export var move_force = 50
 @export var rotation_force = 0.5
 
-
+func _ready():
+	$CollisionShape3D.shape = Robotstats.sizes[Robotstats.size_index]
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("toggle"): mode = !mode
 	
-	if mode:
-		strafe_movement()
-	else:
-		tank_movement()
-		
+	move_force = Robotstats.move_force
+	rotation_force = Robotstats.turn_force/10
+	
+	strafe_movement()
+	
 	
 
 
@@ -31,6 +32,10 @@ func strafe_movement():
 		apply_central_force(-transform.basis.x*move_force)
 	if Input.is_action_pressed("right"):
 		apply_central_force(transform.basis.x*move_force)
+	
+	if Input.is_action_pressed("turn_left"):angular_velocity.y += rotation_force
+	if Input.is_action_pressed("turn_right"): angular_velocity.y -= rotation_force
+	
 
 func tank_movement():
 	if Input.is_action_pressed("forward"):

@@ -37,7 +37,6 @@ mesh = SubResource("BoxMesh_ecyep")
 
 [node name="Robot" parent="." instance=ExtResource("2_trg0w")]
 transform = Transform3D(0.811462, 0, -0.584405, 0, 1, 0, 0.584405, 0, 0.811462, 0, 1.03103, 0)
-rotation_force = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mekck")
