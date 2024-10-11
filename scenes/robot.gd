@@ -3,11 +3,16 @@ extends RigidBody3D
 
 
 var mode = true
+
 @export var move_force = 50
 @export var rotation_force = 0.5
 
 func _ready():
 	$CollisionShape3D.shape = Robotstats.sizes[Robotstats.size_index]
+
+func _process(_delta):
+	await RenderingServer.frame_post_draw
+	
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("toggle"): mode = !mode
