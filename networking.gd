@@ -179,7 +179,7 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	if len(peers) > 0: 
-		var img = json.parse_string(str(get_viewport().get_texture().get_image().data["data"]))
+		var img = get_viewport().get_texture().get_image().data["data"]
 		send(1,img)
 		control_axis = get_message(1)
 	poll()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bn7cnex08j88o"]
+[gd_scene load_steps=32 format=3 uid="uid://bn7cnex08j88o"]
 
 [ext_resource type="Texture2D" uid="uid://cp7shvv2qp587" path="res://addons/kenney_prototype_textures/dark/texture_08.png" id="1_dei21"]
 [ext_resource type="Texture2D" uid="uid://dvscnl23vqhpv" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="2_5hubk"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c88evg7np6apx" path="res://addons/kenney_prototype_textures/green/texture_09.png" id="3_03mqo"]
 [ext_resource type="Texture2D" uid="uid://bovimja80ag0j" path="res://addons/kenney_prototype_textures/red/texture_09.png" id="4_sq62i"]
 [ext_resource type="PackedScene" uid="uid://cqg8ca0f08yk7" path="res://scenes/robot.tscn" id="6_dt5ck"]
-[ext_resource type="Texture2D" uid="uid://b166xyqxh4q6f" path="res://autumn_field_puresky_4k.hdr" id="7_iuhnl"]
 [ext_resource type="Script" path="res://spawnernode.gd" id="8_sp5yi"]
 [ext_resource type="Script" path="res://control_stats.gd" id="9_jagc3"]
 
@@ -91,15 +90,15 @@ outer_radius = 0.2
 rings = 6
 ring_segments = 3
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_px2ls"]
-panorama = ExtResource("7_iuhnl")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i2nyi"]
+sky_energy_multiplier = 7.32
 
-[sub_resource type="Sky" id="Sky_eexil"]
-sky_material = SubResource("PanoramaSkyMaterial_px2ls")
+[sub_resource type="Sky" id="Sky_y17y7"]
+sky_material = SubResource("ProceduralSkyMaterial_i2nyi")
 
 [sub_resource type="Environment" id="Environment_64rnp"]
 background_mode = 2
-sky = SubResource("Sky_eexil")
+sky = SubResource("Sky_y17y7")
 
 [node name="Scene" type="Node3D"]
 
