@@ -16,6 +16,8 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, -1, 0)
 angular_damp = 5.0
 script = ExtResource("1_g0ks3")
+move_force = null
+rotation_force = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2_1akga")

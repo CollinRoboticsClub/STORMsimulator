@@ -1,3 +1,4 @@
 [gd_resource type="SphereShape3D" format=3 uid="uid://c1p0qp1pse3sm"]
 
 [resource]
+radius = 0.051

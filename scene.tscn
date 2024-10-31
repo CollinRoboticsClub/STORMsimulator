@@ -204,6 +204,7 @@ environment = SubResource("Environment_64rnp")
 [node name="spawnernode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20748, 0)
 script = ExtResource("8_sp5yi")
+spread_multiplier = 3
 
 [node name="Timer" type="Timer" parent="spawnernode"]
 wait_time = 6.0
