@@ -12,7 +12,7 @@ size = Vector3(0.457, 0.457, 0.457)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gxjgc"]
 size = Vector3(0.414185, 0.135498, 0.359375)
 
-[node name="Robot" type="RigidBody3D"]
+[node name="Robot" type="RigidBody3D" groups=["robot"]]
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_5fgxc")
 center_of_mass_mode = 1
