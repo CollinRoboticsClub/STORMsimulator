@@ -250,4 +250,12 @@ layout_mode = 2
 max_value = 10.0
 value = 5.0
 
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 237.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 32
+text = "text
+"
+
 [connection signal="timeout" from="spawnernode/Timer" to="spawnernode" method="_on_timer_timeout"]

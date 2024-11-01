@@ -16,7 +16,7 @@ material = SubResource("StandardMaterial3D_l7knt")
 radius = 0.076
 height = 0.152
 
-[node name="Bawl" type="RigidBody3D"]
+[node name="Bawl" type="RigidBody3D" groups=["bawl"]]
 script = ExtResource("1_xk4jj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

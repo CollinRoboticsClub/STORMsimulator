@@ -7,6 +7,9 @@ var mode = true
 @export var move_force = 50
 @export var rotation_force = 0.5
 
+@onready var area = $bawlsensor
+
+
 func _ready():
 	$CollisionShape3D.shape = Robotstats.sizes[Robotstats.size_index]
 
@@ -47,3 +50,10 @@ func strafe_movement():
 
 
 
+
+
+func bawl(body):
+	if not body.is_in_group("bawl"): return
+	if Robotstats.bawlcount > 1: return
+	body.queue_free()
+	Robotstats.bawlcount += 1

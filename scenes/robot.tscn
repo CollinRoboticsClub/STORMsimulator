@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqg8ca0f08yk7"]
+[gd_scene load_steps=6 format=3 uid="uid://cqg8ca0f08yk7"]
 
 [ext_resource type="Script" path="res://scenes/robot.gd" id="1_g0ks3"]
 [ext_resource type="Shape3D" uid="uid://c452biqc1afer" path="res://robot sizes/18inches.tres" id="2_1akga"]
@@ -9,6 +9,9 @@ friction = 0.2
 [sub_resource type="BoxMesh" id="BoxMesh_turv3"]
 size = Vector3(0.457, 0.457, 0.457)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gxjgc"]
+size = Vector3(0.414185, 0.135498, 0.359375)
+
 [node name="Robot" type="RigidBody3D"]
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_5fgxc")
@@ -16,8 +19,6 @@ center_of_mass_mode = 1
 center_of_mass = Vector3(0, -1, 0)
 angular_damp = 5.0
 script = ExtResource("1_g0ks3")
-move_force = null
-rotation_force = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2_1akga")
@@ -28,3 +29,11 @@ mesh = SubResource("BoxMesh_turv3")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.162154, -0.256822)
 current = true
+
+[node name="bawlsensor" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bawlsensor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00319453, -0.130981, -0.193359)
+shape = SubResource("BoxShape3D_gxjgc")
+
+[connection signal="body_entered" from="bawlsensor" to="." method="bawl"]
