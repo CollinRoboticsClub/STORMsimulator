@@ -175,11 +175,34 @@ func _connect_pending(p: PendingPeer) -> bool:
 var json = JSON.new()
 func _ready():
 	listen(8080)
+	message_received.connect(callback)
 
 
 func _process(_delta: float) -> void:
-	if len(peers) > 0: 
-		var img = get_viewport().get_texture().get_image().data["data"]
-		send(1,img)
-		control_axis = get_message(1)
 	poll()
+
+func callback(peer_id, message):
+	 
+	#var img = get_viewport().get_texture().get_image().data["data"]
+	#send(0, str(img))
+	
+
+# Save data
+# ...
+# Retrieve data
+	var json = JSON.new()
+	var error = json.parse(message)
+	var data_received
+	if error == OK:
+		data_received = json.data
+		if typeof(data_received) == TYPE_DICTIONARY:
+			print(data_received) # Prints array
+		else:
+			print("Unexpected data")
+	else:
+		print("JSON Parse Error: ", json.get_error_message(), " in ", message, " at line ", json.get_error_line())	
+		
+	
+	control_axis = Vector3(data_received["x"],data_received["y"],data_received["rotation"])
+	
+	print(message)
