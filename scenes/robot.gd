@@ -42,7 +42,7 @@ func strafe_movement():
 	if Input.is_action_pressed("turn_left"):angular_velocity.y += rotation_force
 	if Input.is_action_pressed("turn_right"): angular_velocity.y -= rotation_force
 	
-	var ca = Networking.control_axis
+	var ca = Networking.control_axis/128
 	apply_central_force((transform.basis.z*move_force)*ca.x)
 	apply_central_force((transform.basis.x*move_force)*ca.y)
 	angular_velocity.y += rotation_force*ca.z

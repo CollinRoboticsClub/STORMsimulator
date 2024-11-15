@@ -17,6 +17,7 @@ signal client_disconnected(peer_id: int)
 			pending_peers.clear()
 
 var control_axis = Vector3.ZERO
+var isPeerControlled = false
 
 class PendingPeer:
 	var connect_time: int
@@ -180,6 +181,7 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	poll()
+	isPeerControlled = len(peers) > 0
 
 func callback(peer_id, message):
 	 
@@ -203,6 +205,6 @@ func callback(peer_id, message):
 		print("JSON Parse Error: ", json.get_error_message(), " in ", message, " at line ", json.get_error_line())	
 		
 	
-	control_axis = Vector3(data_received["x"],data_received["y"],data_received["rotation"])
+	control_axis = Vector3(data_received["y"],data_received["x"],data_received["rotation"])
 	
 	print(message)
