@@ -15,6 +15,8 @@ signal client_disconnected(peer_id: int)
 	set(refuse):
 		if refuse:
 			pending_peers.clear()
+			
+const OUTBOUND_BUFFER_SIZE_BYTES = 1_000_000_000
 
 var control_axis = Vector3.ZERO
 var isPeerControlled = false
@@ -66,7 +68,27 @@ func send(peer_id: int, message: String) -> int:
 	if type == TYPE_STRING:
 		return socket.send_text(message)
 	return socket.send(var_to_bytes(message))
+	
+func send_bytes(peer_id: int, message: PackedByteArray) -> int:
+	if peer_id <= 0:
+		# Send to multiple peers, (zero = broadcast, negative = exclude one).
+		for id: int in peers:
+			if id == -peer_id:
+				continue
+			
+			var socket: WebSocketPeer = peers[id]
+			if (socket.get_current_outbound_buffered_amount() + len(message) > OUTBOUND_BUFFER_SIZE_BYTES):
+				return ERR_BUSY
+			
+			socket.put_packet(message)
+		return OK
 
+	assert(peers.has(peer_id))
+	var socket: WebSocketPeer = peers[peer_id]
+	if (socket.get_current_outbound_buffered_amount() + len(message) > OUTBOUND_BUFFER_SIZE_BYTES):
+		return ERR_BUSY
+	return socket.send(message, WebSocketPeer.WriteMode.WRITE_MODE_BINARY)
+	
 
 func get_message(peer_id: int) -> Variant:
 	assert(peers.has(peer_id))
@@ -88,6 +110,7 @@ func _create_peer() -> WebSocketPeer:
 	var ws := WebSocketPeer.new()
 	ws.supported_protocols = supported_protocols
 	ws.handshake_headers = handshake_headers
+	ws.set_outbound_buffer_size(OUTBOUND_BUFFER_SIZE_BYTES)
 	return ws
 
 
@@ -176,12 +199,19 @@ func _connect_pending(p: PendingPeer) -> bool:
 var json = JSON.new()
 func _ready():
 	listen(8080)
+	
 	message_received.connect(callback)
 
 
 func _process(_delta: float) -> void:
 	poll()
 	isPeerControlled = len(peers) > 0
+	
+	if isPeerControlled:
+		await RenderingServer.frame_post_draw
+		var img = get_viewport().get_texture().get_image().save_jpg_to_buffer()
+		#print(len(img))
+		send_bytes(0, img)
 
 func callback(peer_id, message):
 	 
